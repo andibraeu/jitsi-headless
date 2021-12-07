@@ -5,6 +5,7 @@ After=network.target picar-control.service
 [Service]
 Type=simple
 User=pi
+ExecStartPre=/bin/sh -c 'until ping -c1 meet.weimarnetz.de; do sleep 5; done;'
 ExecStart=/usr/bin/node /home/pi/sources/jitsi-headless/app.js
 Restart=on-failure
 
