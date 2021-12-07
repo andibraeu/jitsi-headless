@@ -76,17 +76,23 @@ async function main() {
     args: chromeArgs,
     executablePath: "/usr/bin/chromium-browser",
     handleSIGINT: false,
+    handleSIGTERM: false
   });
   page = await browser.newPage();
 
-  // Manual handling on SIGINT to gracefully hangup and exit
-  process.on("SIGINT", async () => {
+  async function shutdown() {
     console.log("Exiting...");
-    await page.close();
+    //await page.close();
     browser.close();
     console.log("Done!");
     process.exit();
-  });
+  }
+
+  // Manual handling on SIGINT to gracefully hangup and exit
+  process.on("SIGINT", shutdown);
+
+  // Manual handling on SIGINT to gracefully hangup and exit
+  process.on("SIGTERM", shutdown); 
 
   // Start Jitsi Meet
   await page.goto(url);
