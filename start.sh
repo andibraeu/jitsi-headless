@@ -58,7 +58,7 @@ fi
 Xvfb :1 -screen 0 1920x1080x24 &
 
 # run node app
-cd /home/pi/jitsi-headless/
+cd /home/pi/sources/jitsi-headless/
 node app.js "${JITSI_MEET_ROOM_NAME}"
 
 # finish
